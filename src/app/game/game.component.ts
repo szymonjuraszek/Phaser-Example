@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 // @ts-ignore
 import Phaser from 'phaser';
+import {MainSceneComponent} from '../main-scene/main-scene.component';
+import {MenuSceneComponent} from '../menu-scene/menu-scene.component';
 
 @Component({
   selector: 'app-game',
@@ -13,14 +15,18 @@ export class GameComponent implements OnInit {
   constructor() {
     this.config = {
       type: Phaser.AUTO,
-      height: 600,
-      width: 800,
-      scene: [ MainScene ],
+      height: 625,
+      width: 1000,
+      scale: {
+        // mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+      },
+      scene: [ MainSceneComponent, MenuSceneComponent ],
       parent: 'gameContainer',
       physics: {
         default: 'arcade',
         arcade: {
-          gravity: { y: 100 }
+          gravity: { y: 0 }
         }
       }
     };
@@ -29,19 +35,4 @@ export class GameComponent implements OnInit {
     this.phaserGame = new Phaser.Game(this.config);
   }
 
-}
-
-class MainScene extends Phaser.Scene {
-  constructor() {
-    super({ key: 'main' });
-  }
-  create() {
-    console.log('create method');
-  }
-  preload() {
-    console.log('preload method');
-  }
-  update() {
-    console.log('update method');
-  }
 }

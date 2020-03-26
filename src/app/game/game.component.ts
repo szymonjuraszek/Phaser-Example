@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-// @ts-ignore
+import {Component, OnInit} from '@angular/core';
 import Phaser from 'phaser';
+import {MenuSceneComponent} from '../scenes/menu-scene/menu-scene.component';
+import {AppComponent} from '../app.component';
+import {MainSceneComponent} from '../scenes/main-scene/main-scene.component';
 
 @Component({
   selector: 'app-game',
@@ -10,38 +12,36 @@ import Phaser from 'phaser';
 export class GameComponent implements OnInit {
   phaserGame: Phaser.Game;
   config: Phaser.Types.Core.GameConfig;
-  constructor() {
+
+  constructor(private menuScene: MenuSceneComponent, private mainScene: MainSceneComponent) {
     this.config = {
       type: Phaser.AUTO,
-      height: 600,
-      width: 800,
-      scene: [ MainScene ],
+      height: 1024,
+      width: 1600,
+      scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+      },
+      scene: [],
       parent: 'gameContainer',
       physics: {
         default: 'arcade',
         arcade: {
-          gravity: { y: 100 }
+          gravity: {y: 0}
         }
       }
     };
   }
+
   ngOnInit() {
+    console.error('Initialize Game Object');
+
     this.phaserGame = new Phaser.Game(this.config);
+    this.phaserGame.scene.add('menu', this.menuScene);
+    this.phaserGame.scene.add('main', this.mainScene);
+    this.phaserGame.scene.start('menu');
+
+    console.error('Completed Initialization Game Object');
   }
 
-}
-
-class MainScene extends Phaser.Scene {
-  constructor() {
-    super({ key: 'main' });
-  }
-  create() {
-    console.log('create method');
-  }
-  preload() {
-    console.log('preload method');
-  }
-  update() {
-    console.log('update method');
-  }
 }

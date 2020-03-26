@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
-import { MainSceneComponent } from './main-scene/main-scene.component';
-import { MenuSceneComponent } from './menu-scene/menu-scene.component';
+import { MainSceneComponent } from './scenes/main-scene/main-scene.component';
+import { MenuSceneComponent } from './scenes/menu-scene/menu-scene.component';
+import {WebsocketService} from './websocket/websocket.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { MenuSceneComponent } from './menu-scene/menu-scene.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [WebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
